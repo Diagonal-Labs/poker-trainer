@@ -1,0 +1,21 @@
+{
+ "schemaVersion": 1,
+ "id": "lag_regular",
+ "name": "Loose-aggressive regular",
+ "description": "Wide, aggressive regular.",
+ "version": 1,
+ "skillLevel": 3,
+ "preflop": {
+  "chart": "l3_lag"
+ },
+ "targetStats": {
+  "vpip": [
+   30,
+   38
+  ],
+  "pfr": [
+   24,
+   30
+  ]
+ }
+}

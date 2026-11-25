@@ -1,4 +1,4 @@
-.PHONY: install dev test lint format typecheck check charts ranking docker
+.PHONY: install dev test lint format typecheck check charts ranking simulate docker
 
 install:  ## install the package and dev tools in editable mode
 	pip install -e ".[dev]"
@@ -27,6 +27,9 @@ charts:  ## regenerate the starter charts (data/charts) from data/hand_ranking.j
 
 ranking:  ## recompute data/hand_ranking.json (about 30 seconds)
 	python tools/rank_hands.py data/hand_ranking.json 100000
+
+simulate:  ## 100k-hand preflop simulation: VPIP and PFR against each persona's targets (about 4 minutes)
+	python tools/simulate_preflop.py --hands 100000 --by-position
 
 docker:  ## build and run the app in Docker
 	docker compose up --build

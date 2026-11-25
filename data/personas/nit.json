@@ -1,0 +1,21 @@
+{
+ "schemaVersion": 1,
+ "id": "nit",
+ "name": "Nit",
+ "description": "Plays few hands and raises most of them.",
+ "version": 1,
+ "skillLevel": 2,
+ "preflop": {
+  "chart": "l2_nit"
+ },
+ "targetStats": {
+  "vpip": [
+   10,
+   14
+  ],
+  "pfr": [
+   8,
+   11
+  ]
+ }
+}

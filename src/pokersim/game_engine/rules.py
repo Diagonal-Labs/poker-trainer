@@ -166,6 +166,7 @@ class RulesHand:
         self._next_card = 0
         self.history: list[tuple[int, Action]] = []
         self._shown: dict[int, tuple[str, str]] = {}
+        self._phase: Phase | None = None  # cached: working it out makes PokerKit rank hands
         self._pump()
         # keep every player's hole cards: PokerKit drops a hand's cards once it is mucked or killed
         self._hole = {
@@ -200,6 +201,7 @@ class RulesHand:
     def _pump(self) -> None:
         """Deal hole cards, burns and board cards from our own deck until a decision is needed."""
         st = self._st
+        self._phase = None  # the state is about to change
         while True:
             if st.can_deal_hole():
                 st.deal_hole(self._take())
@@ -214,6 +216,11 @@ class RulesHand:
 
     @property
     def phase(self) -> Phase:
+        if self._phase is None:
+            self._phase = self._work_out_phase()
+        return self._phase
+
+    def _work_out_phase(self) -> Phase:
         st = self._st
         if not st.status:
             return "complete"
