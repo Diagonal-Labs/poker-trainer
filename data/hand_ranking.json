@@ -1,0 +1,850 @@
+{
+ "method": "Monte Carlo equity vs one random hand, 100000 samples per class, eval7, seed 1000+index",
+ "classes": [
+  {
+   "hand": "AA",
+   "equity": 0.8528,
+   "combos": 6
+  },
+  {
+   "hand": "KK",
+   "equity": 0.8237,
+   "combos": 6
+  },
+  {
+   "hand": "QQ",
+   "equity": 0.7994,
+   "combos": 6
+  },
+  {
+   "hand": "JJ",
+   "equity": 0.776,
+   "combos": 6
+  },
+  {
+   "hand": "TT",
+   "equity": 0.7512,
+   "combos": 6
+  },
+  {
+   "hand": "99",
+   "equity": 0.7201,
+   "combos": 6
+  },
+  {
+   "hand": "88",
+   "equity": 0.6897,
+   "combos": 6
+  },
+  {
+   "hand": "AKs",
+   "equity": 0.6674,
+   "combos": 4
+  },
+  {
+   "hand": "AQs",
+   "equity": 0.6611,
+   "combos": 4
+  },
+  {
+   "hand": "77",
+   "equity": 0.6602,
+   "combos": 6
+  },
+  {
+   "hand": "AJs",
+   "equity": 0.6537,
+   "combos": 4
+  },
+  {
+   "hand": "AKo",
+   "equity": 0.6535,
+   "combos": 12
+  },
+  {
+   "hand": "ATs",
+   "equity": 0.647,
+   "combos": 4
+  },
+  {
+   "hand": "AQo",
+   "equity": 0.646,
+   "combos": 12
+  },
+  {
+   "hand": "66",
+   "equity": 0.6334,
+   "combos": 6
+  },
+  {
+   "hand": "KQs",
+   "equity": 0.6323,
+   "combos": 4
+  },
+  {
+   "hand": "AJo",
+   "equity": 0.6322,
+   "combos": 12
+  },
+  {
+   "hand": "ATo",
+   "equity": 0.6286,
+   "combos": 12
+  },
+  {
+   "hand": "A9s",
+   "equity": 0.6275,
+   "combos": 4
+  },
+  {
+   "hand": "KJs",
+   "equity": 0.6271,
+   "combos": 4
+  },
+  {
+   "hand": "A8s",
+   "equity": 0.6174,
+   "combos": 4
+  },
+  {
+   "hand": "KQo",
+   "equity": 0.616,
+   "combos": 12
+  },
+  {
+   "hand": "KTs",
+   "equity": 0.6159,
+   "combos": 4
+  },
+  {
+   "hand": "A7s",
+   "equity": 0.6097,
+   "combos": 4
+  },
+  {
+   "hand": "KJo",
+   "equity": 0.607,
+   "combos": 12
+  },
+  {
+   "hand": "A9o",
+   "equity": 0.6069,
+   "combos": 12
+  },
+  {
+   "hand": "55",
+   "equity": 0.6052,
+   "combos": 6
+  },
+  {
+   "hand": "A6s",
+   "equity": 0.6005,
+   "combos": 4
+  },
+  {
+   "hand": "A8o",
+   "equity": 0.5998,
+   "combos": 12
+  },
+  {
+   "hand": "A5s",
+   "equity": 0.5993,
+   "combos": 4
+  },
+  {
+   "hand": "QJs",
+   "equity": 0.5992,
+   "combos": 4
+  },
+  {
+   "hand": "K9s",
+   "equity": 0.598,
+   "combos": 4
+  },
+  {
+   "hand": "KTo",
+   "equity": 0.5979,
+   "combos": 12
+  },
+  {
+   "hand": "QTs",
+   "equity": 0.5969,
+   "combos": 4
+  },
+  {
+   "hand": "A4s",
+   "equity": 0.5907,
+   "combos": 4
+  },
+  {
+   "hand": "A7o",
+   "equity": 0.5865,
+   "combos": 12
+  },
+  {
+   "hand": "A3s",
+   "equity": 0.5834,
+   "combos": 4
+  },
+  {
+   "hand": "K8s",
+   "equity": 0.5823,
+   "combos": 4
+  },
+  {
+   "hand": "QJo",
+   "equity": 0.5809,
+   "combos": 12
+  },
+  {
+   "hand": "Q9s",
+   "equity": 0.58,
+   "combos": 4
+  },
+  {
+   "hand": "K9o",
+   "equity": 0.5778,
+   "combos": 12
+  },
+  {
+   "hand": "A6o",
+   "equity": 0.5771,
+   "combos": 12
+  },
+  {
+   "hand": "K7s",
+   "equity": 0.5746,
+   "combos": 4
+  },
+  {
+   "hand": "A5o",
+   "equity": 0.5741,
+   "combos": 12
+  },
+  {
+   "hand": "A2s",
+   "equity": 0.5738,
+   "combos": 4
+  },
+  {
+   "hand": "JTs",
+   "equity": 0.5736,
+   "combos": 4
+  },
+  {
+   "hand": "QTo",
+   "equity": 0.5732,
+   "combos": 12
+  },
+  {
+   "hand": "K6s",
+   "equity": 0.5677,
+   "combos": 4
+  },
+  {
+   "hand": "44",
+   "equity": 0.5671,
+   "combos": 6
+  },
+  {
+   "hand": "A4o",
+   "equity": 0.5668,
+   "combos": 12
+  },
+  {
+   "hand": "Q8s",
+   "equity": 0.5597,
+   "combos": 4
+  },
+  {
+   "hand": "K8o",
+   "equity": 0.5595,
+   "combos": 12
+  },
+  {
+   "hand": "A3o",
+   "equity": 0.5585,
+   "combos": 12
+  },
+  {
+   "hand": "K7o",
+   "equity": 0.5564,
+   "combos": 12
+  },
+  {
+   "hand": "K5s",
+   "equity": 0.5554,
+   "combos": 4
+  },
+  {
+   "hand": "J9s",
+   "equity": 0.5552,
+   "combos": 4
+  },
+  {
+   "hand": "Q9o",
+   "equity": 0.5533,
+   "combos": 12
+  },
+  {
+   "hand": "JTo",
+   "equity": 0.5516,
+   "combos": 12
+  },
+  {
+   "hand": "A2o",
+   "equity": 0.5491,
+   "combos": 12
+  },
+  {
+   "hand": "K4s",
+   "equity": 0.5478,
+   "combos": 4
+  },
+  {
+   "hand": "Q7s",
+   "equity": 0.5449,
+   "combos": 4
+  },
+  {
+   "hand": "K6o",
+   "equity": 0.5428,
+   "combos": 12
+  },
+  {
+   "hand": "K3s",
+   "equity": 0.5417,
+   "combos": 4
+  },
+  {
+   "hand": "T9s",
+   "equity": 0.5403,
+   "combos": 4
+  },
+  {
+   "hand": "J8s",
+   "equity": 0.5387,
+   "combos": 4
+  },
+  {
+   "hand": "Q6s",
+   "equity": 0.537,
+   "combos": 4
+  },
+  {
+   "hand": "K5o",
+   "equity": 0.5355,
+   "combos": 12
+  },
+  {
+   "hand": "33",
+   "equity": 0.5354,
+   "combos": 6
+  },
+  {
+   "hand": "Q8o",
+   "equity": 0.5349,
+   "combos": 12
+  },
+  {
+   "hand": "J9o",
+   "equity": 0.5308,
+   "combos": 12
+  },
+  {
+   "hand": "K2s",
+   "equity": 0.5297,
+   "combos": 4
+  },
+  {
+   "hand": "Q5s",
+   "equity": 0.5274,
+   "combos": 4
+  },
+  {
+   "hand": "J7s",
+   "equity": 0.5237,
+   "combos": 4
+  },
+  {
+   "hand": "K4o",
+   "equity": 0.5235,
+   "combos": 12
+  },
+  {
+   "hand": "T8s",
+   "equity": 0.5234,
+   "combos": 4
+  },
+  {
+   "hand": "Q4s",
+   "equity": 0.5196,
+   "combos": 4
+  },
+  {
+   "hand": "Q7o",
+   "equity": 0.5193,
+   "combos": 12
+  },
+  {
+   "hand": "T9o",
+   "equity": 0.5166,
+   "combos": 12
+  },
+  {
+   "hand": "J8o",
+   "equity": 0.5161,
+   "combos": 12
+  },
+  {
+   "hand": "K3o",
+   "equity": 0.5137,
+   "combos": 12
+  },
+  {
+   "hand": "Q6o",
+   "equity": 0.5126,
+   "combos": 12
+  },
+  {
+   "hand": "Q3s",
+   "equity": 0.5092,
+   "combos": 4
+  },
+  {
+   "hand": "98s",
+   "equity": 0.5084,
+   "combos": 4
+  },
+  {
+   "hand": "J6s",
+   "equity": 0.5072,
+   "combos": 4
+  },
+  {
+   "hand": "K2o",
+   "equity": 0.5063,
+   "combos": 12
+  },
+  {
+   "hand": "T7s",
+   "equity": 0.5062,
+   "combos": 4
+  },
+  {
+   "hand": "22",
+   "equity": 0.5025,
+   "combos": 6
+  },
+  {
+   "hand": "Q2s",
+   "equity": 0.5001,
+   "combos": 4
+  },
+  {
+   "hand": "Q5o",
+   "equity": 0.4999,
+   "combos": 12
+  },
+  {
+   "hand": "J5s",
+   "equity": 0.4989,
+   "combos": 4
+  },
+  {
+   "hand": "J7o",
+   "equity": 0.4973,
+   "combos": 12
+  },
+  {
+   "hand": "T8o",
+   "equity": 0.4944,
+   "combos": 12
+  },
+  {
+   "hand": "97s",
+   "equity": 0.4926,
+   "combos": 4
+  },
+  {
+   "hand": "J4s",
+   "equity": 0.4913,
+   "combos": 4
+  },
+  {
+   "hand": "Q4o",
+   "equity": 0.4904,
+   "combos": 12
+  },
+  {
+   "hand": "T6s",
+   "equity": 0.4881,
+   "combos": 4
+  },
+  {
+   "hand": "98o",
+   "equity": 0.4828,
+   "combos": 12
+  },
+  {
+   "hand": "T7o",
+   "equity": 0.482,
+   "combos": 12
+  },
+  {
+   "hand": "Q3o",
+   "equity": 0.4814,
+   "combos": 12
+  },
+  {
+   "hand": "J3s",
+   "equity": 0.4806,
+   "combos": 4
+  },
+  {
+   "hand": "J6o",
+   "equity": 0.4803,
+   "combos": 12
+  },
+  {
+   "hand": "87s",
+   "equity": 0.4784,
+   "combos": 4
+  },
+  {
+   "hand": "96s",
+   "equity": 0.4745,
+   "combos": 4
+  },
+  {
+   "hand": "J2s",
+   "equity": 0.473,
+   "combos": 4
+  },
+  {
+   "hand": "T5s",
+   "equity": 0.4724,
+   "combos": 4
+  },
+  {
+   "hand": "J5o",
+   "equity": 0.4724,
+   "combos": 12
+  },
+  {
+   "hand": "Q2o",
+   "equity": 0.4723,
+   "combos": 12
+  },
+  {
+   "hand": "T4s",
+   "equity": 0.4663,
+   "combos": 4
+  },
+  {
+   "hand": "97o",
+   "equity": 0.4655,
+   "combos": 12
+  },
+  {
+   "hand": "T6o",
+   "equity": 0.4617,
+   "combos": 12
+  },
+  {
+   "hand": "J4o",
+   "equity": 0.4603,
+   "combos": 12
+  },
+  {
+   "hand": "86s",
+   "equity": 0.4595,
+   "combos": 4
+  },
+  {
+   "hand": "95s",
+   "equity": 0.458,
+   "combos": 4
+  },
+  {
+   "hand": "76s",
+   "equity": 0.4548,
+   "combos": 4
+  },
+  {
+   "hand": "T3s",
+   "equity": 0.4544,
+   "combos": 4
+  },
+  {
+   "hand": "J3o",
+   "equity": 0.4524,
+   "combos": 12
+  },
+  {
+   "hand": "T2s",
+   "equity": 0.4513,
+   "combos": 4
+  },
+  {
+   "hand": "87o",
+   "equity": 0.4501,
+   "combos": 12
+  },
+  {
+   "hand": "J2o",
+   "equity": 0.4466,
+   "combos": 12
+  },
+  {
+   "hand": "85s",
+   "equity": 0.446,
+   "combos": 4
+  },
+  {
+   "hand": "96o",
+   "equity": 0.445,
+   "combos": 12
+  },
+  {
+   "hand": "T5o",
+   "equity": 0.441,
+   "combos": 12
+  },
+  {
+   "hand": "94s",
+   "equity": 0.4376,
+   "combos": 4
+  },
+  {
+   "hand": "75s",
+   "equity": 0.4371,
+   "combos": 4
+  },
+  {
+   "hand": "T4o",
+   "equity": 0.4357,
+   "combos": 12
+  },
+  {
+   "hand": "86o",
+   "equity": 0.4327,
+   "combos": 12
+  },
+  {
+   "hand": "93s",
+   "equity": 0.4315,
+   "combos": 4
+  },
+  {
+   "hand": "65s",
+   "equity": 0.4312,
+   "combos": 4
+  },
+  {
+   "hand": "T3o",
+   "equity": 0.4282,
+   "combos": 12
+  },
+  {
+   "hand": "95o",
+   "equity": 0.428,
+   "combos": 12
+  },
+  {
+   "hand": "84s",
+   "equity": 0.4261,
+   "combos": 4
+  },
+  {
+   "hand": "76o",
+   "equity": 0.4218,
+   "combos": 12
+  },
+  {
+   "hand": "74s",
+   "equity": 0.4218,
+   "combos": 4
+  },
+  {
+   "hand": "92s",
+   "equity": 0.4216,
+   "combos": 4
+  },
+  {
+   "hand": "T2o",
+   "equity": 0.418,
+   "combos": 12
+  },
+  {
+   "hand": "64s",
+   "equity": 0.4158,
+   "combos": 4
+  },
+  {
+   "hand": "54s",
+   "equity": 0.4152,
+   "combos": 4
+  },
+  {
+   "hand": "85o",
+   "equity": 0.4139,
+   "combos": 12
+  },
+  {
+   "hand": "83s",
+   "equity": 0.4087,
+   "combos": 4
+  },
+  {
+   "hand": "94o",
+   "equity": 0.4054,
+   "combos": 12
+  },
+  {
+   "hand": "75o",
+   "equity": 0.4053,
+   "combos": 12
+  },
+  {
+   "hand": "82s",
+   "equity": 0.402,
+   "combos": 4
+  },
+  {
+   "hand": "73s",
+   "equity": 0.4011,
+   "combos": 4
+  },
+  {
+   "hand": "93o",
+   "equity": 0.4009,
+   "combos": 12
+  },
+  {
+   "hand": "65o",
+   "equity": 0.4004,
+   "combos": 12
+  },
+  {
+   "hand": "53s",
+   "equity": 0.3992,
+   "combos": 4
+  },
+  {
+   "hand": "84o",
+   "equity": 0.3958,
+   "combos": 12
+  },
+  {
+   "hand": "63s",
+   "equity": 0.3928,
+   "combos": 4
+  },
+  {
+   "hand": "92o",
+   "equity": 0.3889,
+   "combos": 12
+  },
+  {
+   "hand": "43s",
+   "equity": 0.3879,
+   "combos": 4
+  },
+  {
+   "hand": "74o",
+   "equity": 0.3865,
+   "combos": 12
+  },
+  {
+   "hand": "72s",
+   "equity": 0.3844,
+   "combos": 4
+  },
+  {
+   "hand": "54o",
+   "equity": 0.3829,
+   "combos": 12
+  },
+  {
+   "hand": "52s",
+   "equity": 0.38,
+   "combos": 4
+  },
+  {
+   "hand": "64o",
+   "equity": 0.3777,
+   "combos": 12
+  },
+  {
+   "hand": "62s",
+   "equity": 0.3767,
+   "combos": 4
+  },
+  {
+   "hand": "83o",
+   "equity": 0.3766,
+   "combos": 12
+  },
+  {
+   "hand": "42s",
+   "equity": 0.3722,
+   "combos": 4
+  },
+  {
+   "hand": "82o",
+   "equity": 0.3681,
+   "combos": 12
+  },
+  {
+   "hand": "73o",
+   "equity": 0.3656,
+   "combos": 12
+  },
+  {
+   "hand": "63o",
+   "equity": 0.3619,
+   "combos": 12
+  },
+  {
+   "hand": "53o",
+   "equity": 0.3619,
+   "combos": 12
+  },
+  {
+   "hand": "32s",
+   "equity": 0.3602,
+   "combos": 4
+  },
+  {
+   "hand": "43o",
+   "equity": 0.3514,
+   "combos": 12
+  },
+  {
+   "hand": "72o",
+   "equity": 0.349,
+   "combos": 12
+  },
+  {
+   "hand": "62o",
+   "equity": 0.3424,
+   "combos": 12
+  },
+  {
+   "hand": "52o",
+   "equity": 0.3418,
+   "combos": 12
+  },
+  {
+   "hand": "42o",
+   "equity": 0.3312,
+   "combos": 12
+  },
+  {
+   "hand": "32o",
+   "equity": 0.3209,
+   "combos": 12
+  }
+ ]
+}

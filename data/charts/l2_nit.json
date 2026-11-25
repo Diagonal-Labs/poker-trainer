@@ -1,0 +1,130 @@
+{
+ "schemaVersion": 1,
+ "id": "l2_nit",
+ "name": "Nit (Level 2)",
+ "skillLevel": 2,
+ "spots": {
+  "open": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "early"
+      ]
+     },
+     "ranges": {
+      "raise": "66+,A9s+,KQs,ATo+,KJs:0.2"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "middle"
+      ]
+     },
+     "ranges": {
+      "raise": "55+,A7s+,KTs+,ATo+,KQo,KJo:0.75"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "cutoff"
+      ]
+     },
+     "ranges": {
+      "raise": "55+,A4s+,K9s+,QTs+,A8o+,KTo+"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "button"
+      ]
+     },
+     "ranges": {
+      "raise": "44+,A3s+,K7s+,Q9s+,A5o+,K9o+,QJo,A2s:0.75"
+     }
+    },
+    {
+     "ranges": {
+      "raise": "55+,A3s+,K8s+,QTs+,A7o+,KTo+,QJo:0.15"
+     }
+    }
+   ]
+  },
+  "vs_limp": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "bb"
+      ]
+     },
+     "ranges": {
+      "raise": "66+,ATs+,AQo+,KQs:0.9",
+      "call": "55-22,A9s-A2s,KJs-K2s,Q2s+,J2s+,T2s+,92s+,82s+,72s+,62s+,52s+,42s+,32s,AJo-A2o,K2o+,Q2o+,J2o+,T2o+,92o+,82o+,72o+,62o+,52o+,42o+,32o,KQs:0.1"
+     }
+    },
+    {
+     "ranges": {
+      "raise": "66+,ATs+,AQo+,KQs:0.9",
+      "call": "55,A9s-A7s,KJs-KTs,AJo-ATo,KQo,KJo:0.35,KQs:0.1"
+     }
+    }
+   ]
+  },
+  "vs_raise": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "early"
+      ]
+     },
+     "ranges": {
+      "3bet": "77+,AQs+,AJs:0.25",
+      "call": "66,ATs,KQs,AQo+,AJs:0.75,AJo:0.45"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "bb"
+      ]
+     },
+     "ranges": {
+      "3bet": "77+,ATs+,AKo,AQo:0.45",
+      "call": "66-55,A9s-A7s,KTs+,AJo-ATo,KJo+,A9o:0.8,AQo:0.55"
+     }
+    },
+    {
+     "ranges": {
+      "3bet": "77+,ATs+,AKo,AQo:0.45",
+      "call": "66,A9s-A8s,KJs+,AJo-ATo,KQo,KTs:0.55,AQo:0.55"
+     }
+    }
+   ]
+  },
+  "vs_3bet": {
+   "rules": [
+    {
+     "ranges": {
+      "4bet": "77+,AJs+,AKo:0.4",
+      "call": "66,ATs,KQs,AQo-AJo,AKo:0.6,ATo:0.4"
+     }
+    }
+   ]
+  },
+  "vs_4bet": {
+   "rules": [
+    {
+     "ranges": {
+      "5bet": "77+,AKs:0.2",
+      "call": "AQs-ATs,AKo,AKs:0.8,AQo:0.5"
+     }
+    }
+   ]
+  }
+ }
+}
