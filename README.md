@@ -15,7 +15,7 @@ Early build, in slices. See the build order in the design doc.
 | Slice | What | State |
 |---|---|---|
 | 1 | Scaffold, tooling, preflop chart module and starter charts | done |
-| 2 | Game engine: PokerKit wrapper, replayable hands | next |
+| 2 | Game engine: PokerKit wrapper, replayable hands | in review |
 | 3 | Preflop bots and simulation check of VPIP and PFR | |
 | 4 | Postflop decision engine | |
 | 5 | Request handler and storage | |

@@ -41,6 +41,7 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+filterwarnings = ["error"]  # PokerKit warns when chips would be burned or a fold is pointless
 
 [tool.pyright]
 include = ["src", "tests", "tools"]
