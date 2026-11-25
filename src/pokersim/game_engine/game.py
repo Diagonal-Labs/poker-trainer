@@ -11,8 +11,8 @@ import random
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
-from pokersim.engine.rules import Action, HandResult, HandSetup, RulesHand
-from pokersim.engine.seats import DecisionContext, Seat
+from pokersim.game_engine.rules import Action, HandResult, HandSetup, RulesHand
+from pokersim.game_engine.seats import DecisionContext, Seat
 
 MAX_STEPS = 2000  # a hand has far fewer actions; this only guards against a seat that never ends it
 

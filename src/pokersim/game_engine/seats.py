@@ -15,7 +15,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Protocol
 
-from pokersim.engine.rules import Action, HandSnapshot, LegalOptions
+from pokersim.game_engine.rules import Action, HandSnapshot, LegalOptions
 
 
 @dataclass(frozen=True)

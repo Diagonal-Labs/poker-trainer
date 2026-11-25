@@ -8,7 +8,7 @@ import pytest
 from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
-from pokersim.engine.game import (
+from pokersim.game_engine.game import (
     derive_rng,
     next_button,
     play_hand,
@@ -16,8 +16,8 @@ from pokersim.engine.game import (
     run_until_human_turn,
     start_hand,
 )
-from pokersim.engine.rules import Action, HandSetup, SeatEntry
-from pokersim.engine.seats import CheckCallSeat, HumanSeat, RandomSeat, Seat
+from pokersim.game_engine.rules import Action, HandSetup, SeatEntry
+from pokersim.game_engine.seats import CheckCallSeat, HumanSeat, RandomSeat, Seat
 
 
 def table(stacks: dict[int, int], button: int, straddle: int | None = None) -> HandSetup:

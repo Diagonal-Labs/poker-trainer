@@ -18,7 +18,7 @@ from typing import Literal
 
 from pokerkit import Automation, Deck, Mode, NoLimitTexasHoldem
 
-from pokersim.engine.positions import position_names
+from pokersim.game_engine.positions import position_names
 
 ActionKind = Literal["fold", "check", "call", "bet", "raise", "show", "muck", "runout"]
 Phase = Literal["betting", "runout", "showdown", "complete"]

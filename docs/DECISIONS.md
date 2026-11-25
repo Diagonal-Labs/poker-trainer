@@ -2,6 +2,21 @@
 
 Short entries, newest first. The design doc holds the full reasoning for the early ones.
 
+## Folder names follow the design doc
+
+- **Two engine packages.** `engine/` became `game_engine/` (rules, game, seats, positions) and
+  `decision_engine/` (preflop so far). The doc's `engine.rules` is now `game_engine.rules`, and so on.
+- **Dependency direction.** `decision_engine` may import `game_engine` for the table and action types;
+  `game_engine` never imports `decision_engine`. The hand loop only sees the `Seat` interface, so it is
+  testable with scripted seats and needs no bots. A test enforces both rules.
+- **BotSeat moves.** The doc put BotSeat in `engine.seats`. It will live in `decision_engine/bot_seat.py`,
+  because it calls the Decision engine and the dependency runs that way. HumanSeat and the test seats stay in
+  `game_engine/seats.py`.
+- **`api` is `request_handler`.** The doc calls it the Request handler. The doc's "API design" section still
+  describes its HTTP surface.
+- **`chart.py` is `preflop.py`.** The doc's pipeline step is `preflop`, and charts are its data.
+- **Slice 1 entries below** use the old names, kept as written at the time.
+
 ## Slice 1
 
 - **Package and layout.** One Python package, `pokersim`, in the `src` layout. Engine, schemas, storage, api and
@@ -12,16 +27,16 @@ Short entries, newest first. The design doc holds the full reasoning for the ear
   `data/hand_ranking.json` and per-persona profiles, fitted to VPIP and PFR targets. A test fails if the
   committed charts differ from the generator's output. The implied stats depend on an assumed spot mix
   (`data/spot_mix.json`) that slice 3 replaces with simulation measurements.
-- **Chart module.** `engine/chart.py` holds the range-string parser, validator and implied-stat report as pure
+- **Chart module.** `decision_engine/preflop.py` (was `engine/chart.py`) holds the range-string parser, validator and implied-stat report as pure
   functions. Reading files is done by callers, not the engine.
 - **Chart rename.** `l2_tight_passive` became `l2_nit`, because the nit's targets mean it raises almost every
   hand it plays.
 
 ## Slice 2
 
-- **Game engine shape.** `engine/rules.py` is the only PokerKit importer. It exposes `RulesHand` with
-  `start`, `replay`, `legal`, `apply`, `snapshot` and `result`. `engine/game.py` runs hands to a human turn,
-  and `engine/seats.py` holds the seat types (human, check/call, random, scripted).
+- **Game engine shape.** `game_engine/rules.py` is the only PokerKit importer. It exposes `RulesHand` with
+  `start`, `replay`, `legal`, `apply`, `snapshot` and `result`. `game_engine/game.py` runs hands to a human turn,
+  and `game_engine/seats.py` holds the seat types (human, check/call, random, scripted).
 - **Replay.** A hand is rebuilt from setup, seed and action list. The deck comes from a generator derived from
   `seed:hand:stream:index`, so streams never share draws and replay needs no stored state.
 - **Button straddle: out of V1.** An under-the-gun straddle is supported (at least 4 players, at least twice
@@ -40,7 +55,7 @@ Short entries, newest first. The design doc holds the full reasoning for the ear
 
 ## Earlier (see the design doc)
 
-- PokerKit 0.7.x pinned, wrapped behind `engine.rules`. eval7 for all equity.
+- PokerKit 0.7.x pinned, wrapped behind `game_engine.rules`. eval7 for all equity.
 - Stateless server: table state is rebuilt each request by replaying the current hand from its seed and action
   list. No table-state cache in V1.
 - SQLite for sessions and hand history, JSON files for personas and charts.

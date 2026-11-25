@@ -6,7 +6,7 @@ import random
 
 import pytest
 
-from pokersim.engine.rules import (
+from pokersim.game_engine.rules import (
     Action,
     HandSetup,
     IllegalAction,

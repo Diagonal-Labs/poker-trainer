@@ -1,6 +1,6 @@
 """Preflop charts: range-string parser, chart validation and implied-stat reporting.
 
-Pure functions on plain dicts. Loading chart files from disk happens outside the engine.
+Pure functions on plain dicts. Loading chart files from disk happens outside the Decision engine.
 Format reference: the "Preflop chart format" section of the design doc.
 """
 

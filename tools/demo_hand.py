@@ -5,9 +5,9 @@ Run with ``python tools/demo_hand.py``.
 
 from __future__ import annotations
 
-from pokersim.engine.game import play_hand, replay_hand, start_hand
-from pokersim.engine.rules import Action, HandSetup, RulesHand, SeatEntry
-from pokersim.engine.seats import RandomSeat
+from pokersim.game_engine.game import play_hand, replay_hand, start_hand
+from pokersim.game_engine.rules import Action, HandSetup, RulesHand, SeatEntry
+from pokersim.game_engine.seats import RandomSeat
 
 
 class Narrator:

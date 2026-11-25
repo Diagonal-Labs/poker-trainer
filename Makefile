@@ -4,7 +4,7 @@ install:  ## install the package and dev tools in editable mode
 	pip install -e ".[dev]"
 
 dev:  ## run the API with auto-reload on http://localhost:8000
-	uvicorn pokersim.api.app:app --reload --port 8000
+	uvicorn pokersim.request_handler.app:app --reload --port 8000
 
 test:  ## run the tests
 	pytest

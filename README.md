@@ -40,11 +40,12 @@ Other commands: `make charts` regenerates the starter charts, `make ranking` rec
 
 ```
 src/pokersim/
-  engine/        poker rules, table play and bot decisions (pure, no I/O)
-  schemas/       pydantic models shared everywhere
-  storage/       session store, persona library, hand history
-  api/           FastAPI routes only
-  calibration/   simulation runner and stats harness
+  game_engine/      the Game engine: poker rules, seats, the hand loop (pure, no I/O)
+  decision_engine/  the Decision engine: one bot decision, step by step (pure, no I/O)
+  schemas/          pydantic models shared everywhere
+  storage/          SessionStore, PersonaLibrary, HandHistory
+  request_handler/  the Request handler: FastAPI routes only
+  calibration/      simulation runner and stats harness
 data/            charts, hand ranking, spot mix, later personas and presets (files, not code)
 tools/           scripts that generate data files
 tests/           pytest, including architecture rules

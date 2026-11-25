@@ -7,8 +7,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from pokersim.engine.chart import RANKS as R
-from pokersim.engine.chart import combos, implied_stats, validate_chart
+from pokersim.decision_engine.preflop import RANKS as R
+from pokersim.decision_engine.preflop import combos, implied_stats, validate_chart
 
 ROOT = Path(__file__).resolve().parent.parent
 MIX = json.loads((ROOT / "data" / "spot_mix.json").read_text())
