@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from pokersim.engine.chart import (
+from pokersim.decision_engine.preflop import (
     all_hand_classes,
     combos,
     implied_stats,

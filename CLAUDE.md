@@ -12,11 +12,12 @@ When code and doc disagree, flag it and update one of them. Log real decisions i
 
 ## Rules (from the design doc)
 
-- The engine is a functional core: no file, network or database access. Only the API layer touches storage.
-- Dependencies point inward: api and calibration -> engine, schemas, storage. storage -> schemas.
-  engine -> schemas, eval7, PokerKit. Only `engine/rules.py` imports PokerKit. `tests/test_architecture.py`
+- Both engines are functional cores: no file, network or database access. Only the request handler touches storage.
+- Dependencies point inward: request_handler and calibration -> decision_engine, game_engine, schemas, storage.
+  storage -> schemas. decision_engine -> game_engine, schemas, eval7. game_engine -> schemas, PokerKit.
+  Only `game_engine/rules.py` imports PokerKit; game_engine never imports decision_engine. `tests/test_architecture.py`
   enforces this.
-- Pass the random generator in explicitly. No global `random.*` calls in the engine, or seeded replay breaks.
+- Pass the random generator in explicitly. No global `random.*` calls in either engine, or seeded replay breaks.
 - Pydantic at the edges (API, files, stores). Plain dataclasses inside the decision loop.
 - Bot behavior comes from persona and chart files in `data/`, never from code branches on persona names.
 - Use eval7 for all equity. PokerKit's evaluator is for showdown only.

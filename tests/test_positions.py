@@ -1,6 +1,6 @@
 import pytest
 
-from pokersim.engine.positions import chart_group, position_names
+from pokersim.game_engine.positions import chart_group, position_names
 
 
 def test_known_tables() -> None:

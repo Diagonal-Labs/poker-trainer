@@ -3,7 +3,7 @@
 from fastapi.testclient import TestClient
 
 from pokersim import __version__
-from pokersim.api.app import create_app
+from pokersim.request_handler.app import create_app
 
 
 def test_health() -> None:
