@@ -1,0 +1,21 @@
+{
+ "schemaVersion": 1,
+ "id": "maniac",
+ "name": "Maniac",
+ "description": "Raises with almost anything.",
+ "version": 1,
+ "skillLevel": 2,
+ "preflop": {
+  "chart": "l2_wide_aggressive"
+ },
+ "targetStats": {
+  "vpip": [
+   50,
+   70
+  ],
+  "pfr": [
+   30,
+   45
+  ]
+ }
+}

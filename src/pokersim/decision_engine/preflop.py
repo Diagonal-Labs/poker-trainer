@@ -158,14 +158,24 @@ def _validate_rule(spot: str, k: int, rule: Rule) -> list[str]:
     return errs
 
 
-def pick_rule(chart: Chart, spot: str, pos: str) -> Rule:
-    """First rule in the spot whose conditions match the position. The last rule is the default."""
+def pick_rule_index(chart: Chart, spot: str, pos: str) -> int:
+    """Index of the first rule in the spot whose conditions match. The last rule is the default.
+
+    Only the ``pos`` condition is read so far. ``raiserPos``, ``callers``/``limpers`` and ``depth``
+    are in the chart format but no starter chart uses them yet.
+    """
     rules: list[Rule] = chart["spots"][spot]["rules"]
-    for rule in rules:
+    for k, rule in enumerate(rules):
         when = rule.get("when")
         if when is None or pos in when.get("pos", [pos]):
-            return rule
+            return k
     raise ValueError(f"no default rule in spot {spot!r}")
+
+
+def pick_rule(chart: Chart, spot: str, pos: str) -> Rule:
+    """The rule that applies to a position in a spot."""
+    rule: Rule = chart["spots"][spot]["rules"][pick_rule_index(chart, spot, pos)]
+    return rule
 
 
 def action_frequencies(rule: Rule) -> dict[str, float]:
@@ -205,3 +215,78 @@ def implied_stats(chart: Chart, spot_mix: dict[str, Any]) -> ImpliedStats:
         vpip += weights[pos] * v / total_weight
         pfr += weights[pos] * p / total_weight
     return ImpliedStats(vpip, pfr, by_pos)
+
+
+def hand_class(cards: tuple[str, str]) -> str:
+    """The hand class of two cards such as ('Ah', 'Ks'): 'AKo'. Pairs are 'QQ'."""
+    (r1, s1), (r2, s2) = cards[0], cards[1]
+    if r1 == r2:
+        return r1 + r2
+    hi, lo = (r1, r2) if RANKS.index(r1) > RANKS.index(r2) else (r2, r1)
+    return hi + lo + ("s" if s1 == s2 else "o")
+
+
+class ChartPolicy:
+    """A chart prepared for fast lookups, with the persona's looseness applied.
+
+    ``looseness_shift`` is a number of hand classes. Positive: for every rule, the next classes
+    down ``ranking`` (strongest first) are treated as if they were in the range, with the action
+    weights of the weakest class the rule already plays. Negative: the weakest classes it plays
+    are dropped. See "How the decision engine uses a chart" in the design doc.
+    """
+
+    def __init__(self, chart: Chart, ranking: list[str], looseness_shift: int = 0) -> None:
+        self.chart = chart
+        self._rank = {hand: i for i, hand in enumerate(ranking)}
+        self._ranking = ranking
+        self._shift = looseness_shift
+        self._tables: dict[tuple[str, int], dict[str, dict[str, float]]] = {}
+
+    def rule_index(self, spot: str, pos: str) -> int:
+        return pick_rule_index(self.chart, spot, pos)
+
+    def stated(self, spot: str, rule_index: int, hand: str) -> dict[str, float]:
+        """The chart's action weights for a hand in a rule, after looseness. Fold is the rest."""
+        key = (spot, rule_index)
+        table = self._tables.get(key)
+        if table is None:
+            table = self._tables[key] = self._build(self.chart["spots"][spot]["rules"][rule_index])
+        return table.get(hand, {})
+
+    def _build(self, rule: Rule) -> dict[str, dict[str, float]]:
+        table: dict[str, dict[str, float]] = {}
+        for action, text in rule["ranges"].items():
+            for hand, weight in parse_range(text).items():
+                if weight > 0:
+                    table.setdefault(hand, {})[action] = weight
+        if not table or self._shift == 0:
+            return table
+        by_strength = sorted(table, key=lambda h: self._rank[h])
+        if self._shift < 0:
+            for hand in by_strength[self._shift :]:
+                del table[hand]
+            return table
+        weakest = by_strength[-1]
+        start = self._rank[weakest] + 1
+        for hand in self._ranking[start : start + self._shift]:
+            table.setdefault(hand, dict(table[weakest]))
+        return table
+
+
+def action_probabilities(
+    stated: dict[str, float], actions: tuple[str, ...], mix_fidelity: float
+) -> dict[str, float]:
+    """Final action probabilities, fold included, after mix fidelity.
+
+    At fidelity 1 the chart's mix is used as written. At 0 the mix is rounded to its most likely
+    action (call 75% / fold 25% becomes always call). In between, the two are blended.
+    """
+    probs = {a: stated.get(a, 0.0) for a in actions}
+    probs["fold"] = max(0.0, 1.0 - sum(probs.values()))
+    if mix_fidelity >= 1.0:
+        return probs
+    top = max(probs, key=lambda a: probs[a])  # ties keep the first, so a raise beats a fold
+    return {
+        a: mix_fidelity * p + (1.0 - mix_fidelity) * (1.0 if a == top else 0.0)
+        for a, p in probs.items()
+    }

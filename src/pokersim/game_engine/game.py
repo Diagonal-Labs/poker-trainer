@@ -41,6 +41,22 @@ class StepResult:
     complete: bool
 
 
+def decision_context(hand: RulesHand, seed: int, hand_number: int) -> DecisionContext:
+    """What the acting seat is shown: the table, its own cards, its options and a generator."""
+    legal = hand.legal()
+    actor = hand.actor
+    if legal is None or actor is None:
+        raise RuntimeError("no legal options for the current actor")
+    return DecisionContext(
+        seat=actor,
+        snapshot=hand.snapshot(),
+        hole_cards=hand.hole_cards(actor),
+        legal=legal,
+        rng=derive_rng(seed, hand_number, "action", len(hand.history)),
+        history=tuple(hand.history),
+    )
+
+
 def run_until_human_turn(
     hand: RulesHand, seats: Mapping[int, Seat], seed: int, hand_number: int
 ) -> StepResult:
@@ -52,17 +68,8 @@ def run_until_human_turn(
         if phase == "runout":
             hand.apply(Action("runout", 1))  # V1 always uses a single runout
             continue
-        legal = hand.legal()
-        actor = hand.actor
-        if legal is None or actor is None:
-            raise RuntimeError("no legal options for the current actor")  # pragma: no cover
-        ctx = DecisionContext(
-            seat=actor,
-            snapshot=hand.snapshot(),
-            hole_cards=hand.hole_cards(actor),
-            legal=legal,
-            rng=derive_rng(seed, hand_number, "action", len(hand.history)),
-        )
+        ctx = decision_context(hand, seed, hand_number)
+        actor = ctx.seat
         action = seats[actor].act(ctx)
         if action is None:
             return StepResult(actor, False)

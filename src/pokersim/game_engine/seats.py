@@ -4,8 +4,8 @@ A seat gets a ``DecisionContext`` and returns an ``Action``, or None to say "wai
 The same interface covers betting decisions and the show-or-muck choice at showdown: the legal
 options in the context say which one is being asked.
 
-Bots built on personas arrive in a later slice. The seats here are simple ones used for tests,
-simulation baselines and the human player.
+Persona bots live in decision_engine (BotSeat). The seats here are the human player and simple
+ones used for tests and simulation baselines.
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ class DecisionContext:
     hole_cards: tuple[str, str]
     legal: LegalOptions
     rng: random.Random
+    history: tuple[tuple[int, Action], ...] = ()  # the public action log for this hand so far
 
 
 class Seat(Protocol):

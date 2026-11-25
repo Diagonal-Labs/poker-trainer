@@ -1,0 +1,4 @@
+{
+ "note": "Starting guesses, to be tuned in calibration. looseness: preflop hand classes added (or dropped) at a slider value of 1.",
+ "looseness": {"classesPerUnit": 20}
+}

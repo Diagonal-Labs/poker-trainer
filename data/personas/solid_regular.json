@@ -1,0 +1,21 @@
+{
+ "schemaVersion": 1,
+ "id": "solid_regular",
+ "name": "Solid regular",
+ "description": "Tight-aggressive regular.",
+ "version": 1,
+ "skillLevel": 3,
+ "preflop": {
+  "chart": "l3_solid"
+ },
+ "targetStats": {
+  "vpip": [
+   20,
+   26
+  ],
+  "pfr": [
+   15,
+   20
+  ]
+ }
+}

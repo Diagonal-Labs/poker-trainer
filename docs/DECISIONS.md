@@ -2,21 +2,6 @@
 
 Short entries, newest first. The design doc holds the full reasoning for the early ones.
 
-## Folder names follow the design doc
-
-- **Two engine packages.** `engine/` became `game_engine/` (rules, game, seats, positions) and
-  `decision_engine/` (preflop so far). The doc's `engine.rules` is now `game_engine.rules`, and so on.
-- **Dependency direction.** `decision_engine` may import `game_engine` for the table and action types;
-  `game_engine` never imports `decision_engine`. The hand loop only sees the `Seat` interface, so it is
-  testable with scripted seats and needs no bots. A test enforces both rules.
-- **BotSeat moves.** The doc put BotSeat in `engine.seats`. It will live in `decision_engine/bot_seat.py`,
-  because it calls the Decision engine and the dependency runs that way. HumanSeat and the test seats stay in
-  `game_engine/seats.py`.
-- **`api` is `request_handler`.** The doc calls it the Request handler. The doc's "API design" section still
-  describes its HTTP surface.
-- **`chart.py` is `preflop.py`.** The doc's pipeline step is `preflop`, and charts are its data.
-- **Slice 1 entries below** use the old names, kept as written at the time.
-
 ## Slice 1
 
 - **Package and layout.** One Python package, `pokersim`, in the `src` layout. Engine, schemas, storage, api and
@@ -52,6 +37,51 @@ Short entries, newest first. The design doc holds the full reasoning for the ear
 - **Property test.** A hypothesis fuzz plays random hands with random stacks, including stacks smaller than the
   blinds, and checks chip conservation, unique cards and exact replay. `filterwarnings = error` turns any
   PokerKit warning (such as burned chips) into a failure.
+
+## Folder names follow the design doc
+
+- **Two engine packages.** `engine/` became `game_engine/` (rules, game, seats, positions) and
+  `decision_engine/` (preflop so far). The doc's `engine.rules` is now `game_engine.rules`, and so on.
+- **Dependency direction.** `decision_engine` may import `game_engine` for the table and action types;
+  `game_engine` never imports `decision_engine`. The hand loop only sees the `Seat` interface, so it is
+  testable with scripted seats and needs no bots. A test enforces both rules.
+- **BotSeat moves.** The doc put BotSeat in `engine.seats`. It will live in `decision_engine/bot_seat.py`,
+  because it calls the Decision engine and the dependency runs that way. HumanSeat and the test seats stay in
+  `game_engine/seats.py`.
+- **`api` is `request_handler`.** The doc calls it the Request handler. The doc's "API design" section still
+  describes its HTTP surface.
+- **`chart.py` is `preflop.py`.** The doc's pipeline step is `preflop`, and charts are its data.
+- **Slice 1 entries below** use the old names, kept as written at the time.
+
+## Slice 3
+
+- **Persona schema covers the preflop part only.** `schemas/persona.py` has the doc's field names
+  (`preflop.chart`, `chartAdherence`, `mixFidelity`, `biases.looseness`, `targetStats`). Unknown fields are
+  rejected, so the other doc fields (perception, habits, selector, other biases) are added with the slices that
+  use them. `preflop.chart` is required for now; the doc's "a persona with only a skillLevel is valid" needs
+  level default charts, which come with presets.
+- **Starter personas.** Six files in `data/personas/`, one per starter chart, with the doc's target ranges.
+  `looseness` is 0 on all of them because the charts are already fitted to each persona's targets. The doc lists
+  looseness values for the nit, Dave, the maniac and the LAG. Those would be applied on top of the chart and
+  move the stats away from the targets, so the doc and the files differ here. To decide with the doc.
+- **Looseness** shifts every rule by `round(looseness * classesPerUnit)` hand classes down (or up) the hand
+  ranking. `data/bias_scales.json` starts at 20 classes per unit, a guess for calibration.
+- **Chart adherence stand-in.** The doc sends a bot that "forgets" its chart to the full perception pipeline,
+  which does not exist yet. Until slice 4, such a decision is check-if-free, otherwise fold. The simulation
+  reports the chart-only numbers (adherence 1) and, separately, the persona presets.
+- **Postflop placeholder.** Bots check when they can and fold to any bet, and always show at showdown.
+- **Spot detection** reads the action log: raises so far (0 open or vs_limp, 1 vs_raise, 2 vs_3bet, 3+ vs_4bet),
+  and calls before the first raise are limpers. `DecisionContext` now carries that log.
+- **Preflop sizes** (`decision_engine/sizing.py`): opens of 3, 4 or 5 big blinds, isolation raises add 2.5 big
+  blinds per limper, 3-bets are 3x in position and 4x out, 4-bets about 2.3x, 5-bets all-in, and any raise that
+  commits over half the stack is a shove. The doc's level-based sizing styles come later.
+- **Only the `pos` chart condition is read.** `raiserPos`, `callers`/`limpers` and `depth` are in the format but
+  no starter chart uses them yet.
+- **Simulation.** `calibration/simulate.py` plays bot-only hands with stacks reset to 100 big blinds and the
+  button moving every hand. The result does not depend on the number of worker processes. VPIP counts a call of a
+  bet or a raise, not a big-blind check. Results are in `docs/preflop_simulation.md`.
+- **Performance fix.** `RulesHand.phase` is cached: working it out made PokerKit rank hands several times per
+  decision, and caching more than doubled simulation speed.
 
 ## Earlier (see the design doc)
 

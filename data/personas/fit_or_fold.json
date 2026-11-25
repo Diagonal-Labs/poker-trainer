@@ -1,0 +1,21 @@
+{
+ "schemaVersion": 1,
+ "id": "fit_or_fold",
+ "name": "Fit-or-fold",
+ "description": "Beginner who plays a few strong hands.",
+ "version": 1,
+ "skillLevel": 1,
+ "preflop": {
+  "chart": "l1_basic"
+ },
+ "targetStats": {
+  "vpip": [
+   20,
+   28
+  ],
+  "pfr": [
+   4,
+   9
+  ]
+ }
+}
