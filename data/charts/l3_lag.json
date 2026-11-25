@@ -1,0 +1,135 @@
+{
+ "schemaVersion": 1,
+ "id": "l3_lag",
+ "name": "Loose-aggressive regular (Level 3)",
+ "skillLevel": 3,
+ "spots": {
+  "open": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "early"
+      ]
+     },
+     "ranges": {
+      "raise": "55+,A2s+,K5s+,Q8s+,J9s+,T9s,A5o+,K9o+,QTo,QJo:0.2",
+      "limp": "Q7s,A4o,QJo:0.8,K3s:0.55"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "middle"
+      ]
+     },
+     "ranges": {
+      "raise": "44+,A2s+,K2s+,Q6s+,J8s+,T9s,A2o+,K7o+,QTo+,JTo,98s:0.25",
+      "limp": "J7s,T8s,K6o,Q9o,K5o:0.4"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "cutoff"
+      ]
+     },
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q3s+,J4s+,T7s+,97s+,A2o+,K2o,K4o+,Q6o+,J8o+",
+      "limp": "Q2s,J2s,T6s-T5s,86s+,K3o,T9o,22:0.5"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "button"
+      ]
+     },
+     "ranges": {
+      "raise": "22+,A2s+,K2s+,Q2s+,J2s+,T2s+,95s+,86s+,76s,A2o+,K2o+,Q2o+,J4o+,T7o+,98o,T6o:0.95",
+      "limp": "94s-93s,85s,75s,65s,J3o,T4o,97o,87o,T6o:0.05,96o:0.05"
+     }
+    },
+    {
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q2s+,J4s+,T6s+,97s+,A2o+,K2o+,Q5o+,J7o+,T9o,87s:0.15",
+      "limp": "22,J3s-J2s,T5s,86s,76s,T8o,98o,87s:0.85,J6o:0.2"
+     }
+    }
+   ]
+  },
+  "vs_limp": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "bb"
+      ]
+     },
+     "ranges": {
+      "raise": "44+,A2s+,K3s+,Q7s+,J9s+,T9s,A5o+,K8o+,QTo+,A4o:0.55",
+      "call": "33-22,K2s,Q6s-Q2s,J8s-J2s,T8s-T2s,92s+,82s+,72s+,62s+,52s+,42s+,32s,A3o-A2o,K7o-K2o,Q9o-Q2o,J2o+,T2o+,92o+,82o+,72o+,62o+,52o+,42o+,32o,A4o:0.45"
+     }
+    },
+    {
+     "ranges": {
+      "raise": "44+,A2s+,K3s+,Q7s+,J9s+,T9s,A5o+,K8o+,QTo+,A4o:0.55",
+      "call": "33,K2s,Q6s-Q4s,J8s-J7s,T8s,97s+,A3o-A2o,K7o-K5o,Q9o,JTo,Q8o:0.65,A4o:0.45"
+     }
+    }
+   ]
+  },
+  "vs_raise": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "early"
+      ]
+     },
+     "ranges": {
+      "3bet": "66+,A7s+,KTs+,QTs+,AJo+,ATo:0.45",
+      "call": "55,A6s-A2s,K9s-K8s,Q9s,J9s+,A9o-A8o,KTo+,ATo:0.55,K6s:0.2"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "bb"
+      ]
+     },
+     "ranges": {
+      "3bet": "55+,A3s+,K9s+,QTs+,JTs,A8o,ATo+,KQo,K8s:0.25",
+      "call": "44,A2s,K7s-K2s,Q9s-Q6s,J9s-J8s,T8s+,A7o-A2o,A9o,KJo-K7o,QTo+,K8s:0.75,Q9o:0.5"
+     }
+    },
+    {
+     "ranges": {
+      "3bet": "55+,A3s+,K9s+,QTs+,JTs,A8o,ATo+,KQo,K8s:0.25",
+      "call": "A2s,K3s,K7s-K5s,Q9s-Q7s,J9s,T9s,A7o-A4o,A9o,KJo-K9o,QJo,QTo:0.9,K8s:0.75"
+     }
+    }
+   ]
+  },
+  "vs_3bet": {
+   "rules": [
+    {
+     "ranges": {
+      "4bet": "66+,A8s+,KTs+,AJo+,QTs:0.55",
+      "call": "55,A7s-A4s,K9s,QJs,JTs,ATo-A9o,KTo,KQo,KJo:0.75,QTs:0.45"
+     }
+    }
+   ]
+  },
+  "vs_4bet": {
+   "rules": [
+    {
+     "ranges": {
+      "5bet": "77+,ATs+,KQs,AKo:0.75",
+      "call": "66,A9s,KJs,QJs,ATo,AQo,KTs:0.35,AKo:0.25"
+     }
+    }
+   ]
+  }
+ }
+}

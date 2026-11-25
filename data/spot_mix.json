@@ -1,0 +1,12 @@
+{
+ "note": "Rough assumption: how often a bot in each position group finds itself in each spot. Used only to report a chart's implied VPIP and PFR. Replace with measured values from simulation.",
+ "positionWeights": {"early": 3, "middle": 2, "cutoff": 1, "button": 1, "sb": 1, "bb": 1},
+ "mix": {
+  "early":  {"open": 0.65, "vs_limp": 0.15, "vs_raise": 0.17, "vs_3bet": 0.025, "vs_4bet": 0.005},
+  "middle": {"open": 0.50, "vs_limp": 0.22, "vs_raise": 0.24, "vs_3bet": 0.03,  "vs_4bet": 0.01},
+  "cutoff": {"open": 0.45, "vs_limp": 0.22, "vs_raise": 0.28, "vs_3bet": 0.04,  "vs_4bet": 0.01},
+  "button": {"open": 0.40, "vs_limp": 0.22, "vs_raise": 0.32, "vs_3bet": 0.05,  "vs_4bet": 0.01},
+  "sb":     {"open": 0.30, "vs_limp": 0.25, "vs_raise": 0.38, "vs_3bet": 0.06,  "vs_4bet": 0.01},
+  "bb":     {"open": 0.00, "vs_limp": 0.40, "vs_raise": 0.52, "vs_3bet": 0.06,  "vs_4bet": 0.02}
+ }
+}

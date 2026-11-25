@@ -1,0 +1,135 @@
+{
+ "schemaVersion": 1,
+ "id": "l2_wide_aggressive",
+ "name": "Wide aggressive (Level 2)",
+ "skillLevel": 2,
+ "spots": {
+  "open": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "early"
+      ]
+     },
+     "ranges": {
+      "raise": "44+,A2s+,K4s,K6s+,Q4s,Q7s+,J7s,J9s+,98s,A2o+,K9o+,QTo+",
+      "limp": "K3s-K2s,K5s,Q5s,J6s,J8s,T8s+,K8o-K7o,Q9o,JTo,K5o:0.65"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "middle"
+      ]
+     },
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q4s-Q3s,Q7s+,J5s,J7s+,T7s+,98s,A2o+,K5o-K4o,K7o+,Q6o,QTo+,J8o,JTo,J7o:0.65",
+      "limp": "Q6s-Q5s,J4s-J2s,J6s,97s,76s,K3o-K2o,K6o,Q7o,Q9o,J9o,T9o,Q4o:0.1"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "cutoff"
+      ]
+     },
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q2s+,J2s,J4s+,T2s,T6s+,96s+,86s+,65s,A2o+,K2o+,Q5o+,J7o+,T6o,T8o+,98o,97o:0.1",
+      "limp": "22,J3s,T5s-T3s,95s-94s,85s,75s+,64s,54s,Q4o-Q2o,J6o-J4o,T7o,96o,97o:0.9,95o:0.35"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "button"
+      ]
+     },
+     "ranges": {
+      "raise": "22+,A2s+,K2s+,Q2s+,J2s+,T2s+,92s+,83s,85s+,72s,75s+,64s+,53s+,43s,A2o+,K2o+,Q2o+,J2o+,T4o+,93o,96o+,87o,76o,75o:0.25",
+      "limp": "82s,84s,74s-73s,63s-62s,52s,42s,32s,T3o-T2o,92o,95o-94o,86o-83o,74o-73o,64o+,54o,75o:0.75,63o:0.55"
+     }
+    },
+    {
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q2s+,J2s+,T2s,T4s+,96s+,85s+,76s,65s,A2o+,K2o+,Q3o+,J7o+,T6o,T8o+,97o+,87o",
+      "limp": "22,T3s,95s-92s,83s-82s,75s,64s,54s,Q2o,J6o-J2o,T5o,T7o,96o-95o,76o:0.8"
+     }
+    }
+   ]
+  },
+  "vs_limp": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "bb"
+      ]
+     },
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q2s+,J2s,J5s,J7s+,T2s,T7s+,96s,98s,87s,65s,A2o+,K2o+,Q7o-Q6o,Q9o+,J8o-J7o,JTo,T8o+,98o,Q5o:0.2",
+      "call": "22,J4s-J3s,J6s,T6s-T3s,95s-92s,97s,86s-82s,72s+,64s-62s,52s+,42s+,32s,Q4o-Q2o,Q8o,J6o-J2o,J9o,T7o-T2o,97o-92o,82o+,72o+,62o+,52o+,42o+,32o,Q5o:0.8"
+     }
+    },
+    {
+     "ranges": {
+      "raise": "33+,A2s+,K2s+,Q2s+,J2s,J5s,J7s+,T2s,T7s+,96s,98s,87s,65s,A2o+,K2o+,Q7o-Q6o,Q9o+,J8o-J7o,JTo,T8o+,98o,Q5o:0.2",
+      "call": "22,J4s-J3s,J6s,T6s-T3s,95s-92s,97s,86s-82s,72s,74s+,64s,52s,54s,43s,Q4o-Q2o,Q8o,J6o-J2o,J9o,T2o,T7o-T5o,97o-95o,86o+,76o,93o:0.85,Q5o:0.8"
+     }
+    }
+   ]
+  },
+  "vs_raise": {
+   "rules": [
+    {
+     "when": {
+      "pos": [
+       "early"
+      ]
+     },
+     "ranges": {
+      "3bet": "66+,A3s,A5s,A7s+,K9s+,QTs+,JTs,A9o+,K9o,KJo+,QTo,QJo:0.7",
+      "call": "55-44,A2s,A4s,A6s,K8s-K2s,Q9s-Q4s,J4s-J2s,J9s-J6s,T7s+,97s+,76s,A8o-A2o,K8o-K2o,KTo,Q7o-Q6o,Q9o,J9o+,T9o,QJo:0.3"
+     }
+    },
+    {
+     "when": {
+      "pos": [
+       "bb"
+      ]
+     },
+     "ranges": {
+      "3bet": "44,66+,A2s+,K4s,K6s+,Q8s+,JTs,98s,A3o-A2o,A8o+,K9o+,QTo+,A7o:0.25",
+      "call": "33-22,55,K3s-K2s,K5s,Q7s-Q2s,J9s-J2s,T2s+,97s-92s,82s+,72s+,62s+,52s+,42s+,32s,A6o-A4o,K8o-K2o,Q9o-Q2o,J2o+,T2o+,93o+,84o+,74o,76o,65o,75o:0.95,A7o:0.75"
+     }
+    },
+    {
+     "ranges": {
+      "3bet": "44,66+,A2s+,K4s,K6s+,Q8s+,JTs,98s,A3o-A2o,A8o+,K9o+,QTo+,A7o:0.25",
+      "call": "33-22,55,K3s-K2s,K5s,Q7s-Q2s,J9s-J2s,T3s+,97s-94s,85s+,75s+,65s,54s,A6o-A4o,K8o-K2o,Q9o-Q2o,J4o+,T6o+,97o+,96o:0.8,A7o:0.75"
+     }
+    }
+   ]
+  },
+  "vs_3bet": {
+   "rules": [
+    {
+     "ranges": {
+      "4bet": "66+,A3s,A5s,A9s+,KTs+,QTs+,A9o,AJo+,KJo+,ATo:0.4",
+      "call": "55-44,A2s,A4s,A8s-A6s,K9s-K2s,Q9s-Q4s,J4s-J2s,J6s+,T5s,T7s+,97s+,76s,A8o-A2o,KTo-K2o,Q4o,Q7o-Q6o,Q9o+,J9o+,T9o,ATo:0.6,96s:0.45"
+     }
+    }
+   ]
+  },
+  "vs_4bet": {
+   "rules": [
+    {
+     "ranges": {
+      "5bet": "77+,ATs+,KTs,KQs,QTs+,AQo+,KQo:0.65",
+      "call": "66-44,A9s-A3s,K3s,K9s-K5s,KJs,Q5s,Q9s-Q7s,J9s+,T9s,AJo-A4o,KJo-K9o,QTo+,JTo,KQo:0.35"
+     }
+    }
+   ]
+  }
+ }
+}
