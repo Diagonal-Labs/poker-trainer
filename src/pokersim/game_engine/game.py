@@ -54,6 +54,7 @@ def decision_context(hand: RulesHand, seed: int, hand_number: int) -> DecisionCo
         legal=legal,
         rng=derive_rng(seed, hand_number, "action", len(hand.history)),
         history=tuple(hand.history),
+        history_streets=tuple(hand.history_streets),
     )
 
 

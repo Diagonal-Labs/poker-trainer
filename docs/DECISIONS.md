@@ -83,6 +83,31 @@ Short entries, newest first. The design doc holds the full reasoning for the ear
 - **Performance fix.** `RulesHand.phase` is cached: working it out made PokerKit rank hands several times per
   decision, and caching more than doubled simulation speed.
 
+## Slice 4
+
+Decided on my own, as asked. Review these.
+
+- **Pipeline implemented:** decision state, perception, baseline EV, biases, selector (two steps), in
+  `decision_engine/` with one module per stage. **Habits and tells are deferred** (the doc's later stages).
+- **Perception dials:** only `handStrength`, `boardTexture`, `money` and `multiway` exist. A dial of 0 reads like 1.
+  Levels 1 and 2 use category tables, misreads and flags; Level 3 uses real equity against range buckets.
+- **Equity:** eval7 only, in `decision_engine/eval7_adapter.py`, the single importer (a test enforces it). The
+  sampler is seeded by the inputs, so the cache is pure and the engine stays deterministic.
+- **Opponent ranges** are guessed from the action log: raises narrow to 30/12/6/4 percent of hands, calls to
+  35/20/12, a postflop bet keeps 80 percent of the range (floor 30), a call 90 percent.
+- **Baseline EV** follows the doc's formulas. Extra stand-ins in `data/presets.json`: `callBonus` (0.2, implied
+  odds), `raiseFoldFactor`, `maxFoldPerOpponent`, `raiseCalledPenalty`, which stop raises looking free.
+- **Size menu:** bets 33/66/100/150 percent of the pot, raises min/3x/3.5x, all-in only when the stack is at most
+  2.5 pots (`shoveMaxPotMultiple`); sizes near the stack collapse into the all-in.
+- **Biases:** looseness, aggression, stickiness, riskAversion and sizing style are implemented. `looseness` stays
+  0 on the starter personas because their charts already encode it. Bias scales are guesses.
+- **Chart adherence fallback** is still check-if-free, otherwise fold. Routing it into this pipeline is the
+  next change; it is why fit-or-fold VPIP is below target.
+- **Postflop targets** (af, wtsd, cbet, foldToBet) in the persona files are my estimates, not data.
+- **Game engine:** `RulesHand` now records the street of every action and each seat's chips invested, and
+  `DecisionContext` carries `history_streets`.
+- **Simulation:** `docs/postflop_simulation.md`. Several stats are still outside the estimated targets.
+
 ## Earlier (see the design doc)
 
 - PokerKit 0.7.x pinned, wrapped behind `game_engine.rules`. eval7 for all equity.

@@ -16,6 +16,26 @@
   "pfr": [
    4,
    9
+  ],
+  "af": [
+   1.0,
+   3.0
+  ],
+  "wtsd": [
+   22,
+   32
+  ],
+  "cbet": [
+   45,
+   65
+  ],
+  "foldToBet": [
+   40,
+   60
   ]
+ },
+ "biases": {
+  "riskAversion": 0.5,
+  "aggression": -0.2
  }
 }

@@ -1,4 +1,22 @@
 {
- "note": "Starting guesses, to be tuned in calibration. looseness: preflop hand classes added (or dropped) at a slider value of 1.",
- "looseness": {"classesPerUnit": 20}
+ "note": "Starting guesses, to be tuned in calibration. Slider 1 is worth this many pot units (looseness preflop: hand classes).",
+ "looseness": {
+  "classesPerUnit": 20,
+  "potUnits": 0.15
+ },
+ "aggression": {
+  "potUnits": 0.08
+ },
+ "stickiness": {
+  "potUnits": 0.6
+ },
+ "riskAversion": {
+  "potUnits": 0.3
+ },
+ "sizingStyle": {
+  "potUnits": 0.2
+ },
+ "tellLeakage": {
+  "potUnits": 0.2
+ }
 }
