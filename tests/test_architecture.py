@@ -79,3 +79,11 @@ def test_engines_use_no_global_random_calls() -> None:
                     and node.attr not in {"Random"}
                 ):
                     raise AssertionError(f"{path.name}:{node.lineno} calls random.{node.attr}")
+
+
+def test_only_the_eval7_adapter_imports_eval7() -> None:
+    for path in sorted(SRC.rglob("*.py")):
+        uses = any(m == "eval7" or m.startswith("eval7.") for m in _imports(path))
+        assert not uses or path.relative_to(SRC) == Path("decision_engine/eval7_adapter.py"), (
+            path.name
+        )

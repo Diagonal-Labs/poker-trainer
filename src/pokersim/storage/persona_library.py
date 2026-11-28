@@ -44,3 +44,8 @@ class PersonaLibrary:
     def bias_scales(self) -> dict[str, Any]:
         scales: dict[str, Any] = self._read("bias_scales.json")
         return scales
+
+    def presets(self) -> dict[str, Any]:
+        """Level presets, baseline-engine constants and perception scales (data/presets.json)."""
+        presets: dict[str, Any] = self._read("presets.json")
+        return presets

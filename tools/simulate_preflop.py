@@ -17,7 +17,7 @@ import json
 import time
 from pathlib import Path
 
-from pokersim.calibration.simulate import pct, report, simulate
+from pokersim.calibration.simulate import pct, postflop_report, report, simulate
 from pokersim.storage.persona_library import PersonaLibrary
 
 DATA = Path(__file__).resolve().parent.parent / "data"
@@ -52,6 +52,8 @@ def main() -> None:
         f"{result.hands} hands, {len(ids)} seats, {secs:.0f}s ({result.hands / secs:.0f} hands/s)\n"
     )
     print(report(result, library))
+    print("\nPostflop (the full decision pipeline)")
+    print(postflop_report(result, library))
     if args.by_position:
         print("\nVPIP / PFR by position group")
         for persona in result.by_persona:

@@ -107,6 +107,7 @@ class SeatSnapshot:
     position: str
     stack: int
     bet: int  # chips put in on the current street
+    invested: int  # chips put in over the whole hand
     in_hand: bool
     all_in: bool
 
@@ -141,6 +142,7 @@ class RulesHand:
     def __init__(self, setup: HandSetup, deck: list[str]) -> None:
         setup.validate()
         self.setup = setup
+        self._starting_stack = {e.seat: e.stack for e in setup.seats}
         # PokerKit player order: the seat after the button first, the button last.
         by_seat = sorted(setup.seats, key=lambda e: e.seat)
         pos = next(i for i, e in enumerate(by_seat) if e.seat == setup.button)
@@ -165,6 +167,7 @@ class RulesHand:
         self._deck = deck
         self._next_card = 0
         self.history: list[tuple[int, Action]] = []
+        self.history_streets: list[str] = []  # the street each action in history was taken on
         self._shown: dict[int, tuple[str, str]] = {}
         self._phase: Phase | None = None  # cached: working it out makes PokerKit rank hands
         self._pump()
@@ -264,6 +267,7 @@ class RulesHand:
                     position=self._positions[seat],
                     stack=int(st.stacks[i]),
                     bet=int(st.bets[i]),
+                    invested=self._starting_stack[seat] - int(st.stacks[i]),
                     in_hand=in_hand,
                     all_in=in_hand and st.stacks[i] == 0,
                 )
@@ -328,6 +332,7 @@ class RulesHand:
 
     def apply(self, action: Action) -> None:
         """Apply an action for the current actor. Raises ``IllegalAction`` if it is not allowed."""
+        street = STREETS[min(self._st.street_index or 0, 3)]
         legal = self.legal()
         if legal is None or action.kind not in legal.kinds:
             raise IllegalAction(f"{action.kind} is not allowed now")
@@ -354,6 +359,7 @@ class RulesHand:
                     raise IllegalAction("V1 supports a single runout only")
                 st.select_runout_count(1)
         self.history.append((seat, action))
+        self.history_streets.append(street)
         self._pump()
 
     @property

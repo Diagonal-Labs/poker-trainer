@@ -26,6 +26,7 @@ class DecisionContext:
     legal: LegalOptions
     rng: random.Random
     history: tuple[tuple[int, Action], ...] = ()  # the public action log for this hand so far
+    history_streets: tuple[str, ...] = ()  # the street of each action in the log
 
 
 class Seat(Protocol):

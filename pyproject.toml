@@ -42,7 +42,12 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
-filterwarnings = ["error"]  # PokerKit warns when chips would be burned or a fold is pointless
+filterwarnings = [
+    # PokerKit warns when chips would be burned or a fold is pointless, so any warning fails
+    "error",
+    # eval7 calls pyparsing methods that newer pyparsing deprecates; nothing for us to fix
+    "ignore:.*deprecated - use.*:Warning:eval7",
+]
 
 [tool.pyright]
 include = ["src", "tests", "tools"]
