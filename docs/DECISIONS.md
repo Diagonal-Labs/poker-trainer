@@ -108,6 +108,30 @@ Decided on my own, as asked. Review these.
   `DecisionContext` carries `history_streets`.
 - **Simulation:** `docs/postflop_simulation.md`. Several stats are still outside the estimated targets.
 
+## Slice 5
+
+- **Build order changed.** The playable table moved ahead of storage so the product can be tested early (UAT in
+  slices, not only code). Storage and hand history are now slice 7, tells and polish slice 8.
+- **One endpoint, stateless.** `POST /api/hand` takes the seed, hand number, button, seats and every action so
+  far; the server replays the hand, runs bots until the human must act, and returns the table, the legal
+  options and the full action list to send back. Bots do not decide again for replayed actions.
+- **Hidden information.** The response carries the human's cards, and other cards only once shown at showdown.
+- **Bot reasons** (`reason` on events) come from the decision records and exist only for actions made during
+  that request. The page keeps them, so a page reload after the action keeps them. They are for UAT.
+- **Session lives in the browser** (seed, stacks, button, personas, hand number, in localStorage). `next` in the
+  response gives the next hand's button and stacks; a busted seat is topped up to 200.
+- **One human seat (seat 0), six handed**, 200 chip stacks. No straddle, no rake, and bots never rebuy to a
+  target stack, so stacks drift apart over a session.
+- **Bots play at their own chart adherence**, so the chart-adherence stand-in (check or fold) is visible in play
+  ("forgot the chart"). It is the first thing to fix after UAT.
+- **No animation or delays.** Bots act instantly; everything shows when it is your turn.
+- **Static page** `frontend/index.html` (vanilla JS), served by the API at `/`. No build step, so it can be
+  replaced by the real frontend later.
+- **Bot factory.** `decision_engine/bot_factory.py` builds a bot from plain data so the request handler does not
+  import calibration; calibration uses it too.
+- **Project root** for `data/` and `frontend/` comes from `POKERSIM_ROOT`, else the working directory, else the
+  source checkout (the Docker image runs from /app).
+
 ## Earlier (see the design doc)
 
 - PokerKit 0.7.x pinned, wrapped behind `game_engine.rules`. eval7 for all equity.

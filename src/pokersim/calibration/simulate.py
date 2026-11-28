@@ -15,10 +15,10 @@ from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from pokersim.decision_engine.bot_factory import make_bot
 from pokersim.decision_engine.bot_seat import BotSeat
 from pokersim.decision_engine.equity import EquityModel
-from pokersim.decision_engine.preflop import ChartPolicy, validate_chart
-from pokersim.decision_engine.presets import Tuning, resolve_profile
+from pokersim.decision_engine.presets import Tuning
 from pokersim.game_engine.game import run_until_human_turn, start_hand
 from pokersim.game_engine.positions import chart_group
 from pokersim.game_engine.rules import HandSetup, SeatEntry
@@ -98,12 +98,7 @@ def build_bots(
             settings = persona.preflop.model_copy(update={"chartAdherence": chart_adherence})
             persona = persona.model_copy(update={"preflop": settings})
         chart = library.chart(persona.preflop.chart)
-        problems = validate_chart(chart)
-        if problems:
-            raise ValueError(f"chart {persona.preflop.chart}: {problems[0]}")
-        shift = round(persona.biases.looseness * scale)
-        profile = resolve_profile(persona, presets)
-        bots.append(BotSeat(persona, ChartPolicy(chart, ranking, shift), profile, tuning, model))
+        bots.append(make_bot(persona, chart, ranking, presets, scale, tuning, model))
     return bots
 
 
