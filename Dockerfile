@@ -7,6 +7,7 @@ COPY pyproject.toml README.md ./
 COPY src ./src
 RUN pip install --no-cache-dir .
 COPY data ./data
+COPY frontend ./frontend
 
 EXPOSE 8000
 CMD ["uvicorn", "pokersim.request_handler.app:app", "--host", "0.0.0.0", "--port", "8000"]

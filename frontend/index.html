@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poker trainer</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --felt:#0f5132; --felt2:#0b3d26; --ink:#e8efe9; --dim:#9db3a5; --gold:#f2c14e; --red:#d64545; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0b1410; color:var(--ink); font:15px/1.4 system-ui,sans-serif; }
+  header { display:flex; gap:12px; align-items:center; padding:10px 16px; background:#08100c; border-bottom:1px solid #1d2d24; flex-wrap:wrap; }
+  header h1 { font-size:17px; margin:0 12px 0 0; }
+  header .stat { color:var(--dim); } header .stat b { color:var(--ink); }
+  button, select, input { font:inherit; }
+  button { background:#1d3a2b; color:var(--ink); border:1px solid #2f5b43; border-radius:8px; padding:8px 14px; cursor:pointer; }
+  button:hover:not(:disabled) { background:#27503a; }
+  button:disabled { opacity:.4; cursor:default; }
+  button.primary { background:var(--gold); color:#251c00; border-color:var(--gold); font-weight:600; }
+  button.danger { background:#4a1d1d; border-color:#7a2f2f; }
+  main { display:grid; grid-template-columns: minmax(0,1fr) 320px; gap:16px; padding:16px; max-width:1300px; margin:0 auto; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .table { position:relative; aspect-ratio: 16/10; min-height:420px; background:radial-gradient(ellipse at center,var(--felt) 0%,var(--felt2) 100%);
+    border:10px solid #3a2a1a; border-radius:50% / 46%; box-shadow:0 8px 30px #0008 inset, 0 4px 20px #000a; }
+  .center { position:absolute; left:50%; top:46%; transform:translate(-50%,-50%); text-align:center; }
+  .pot { color:var(--gold); font-weight:600; margin-bottom:6px; min-height:22px; }
+  .board { display:flex; gap:6px; justify-content:center; min-height:62px; }
+  .card { width:42px; height:60px; background:#f7f7f2; color:#111; border-radius:6px; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; font-weight:700; font-size:18px; line-height:1; box-shadow:0 2px 4px #0006; }
+  .card.red { color:#c0262d; } .card.back { background:repeating-linear-gradient(45deg,#2a4d8f,#2a4d8f 4px,#223f75 4px,#223f75 8px); color:transparent; }
+  .card small { font-size:20px; }
+  .seat { position:absolute; width:150px; transform:translate(-50%,-50%); text-align:center; }
+  .plate { background:#0a140f; border:2px solid #24382d; border-radius:12px; padding:6px 8px; }
+  .seat.acting .plate { border-color:var(--gold); box-shadow:0 0 12px #f2c14e88; }
+  .seat.folded .plate { opacity:.45; }
+  .seat.hero .plate { border-color:#4ea1f2; }
+  .name { font-weight:600; font-size:14px; } .meta { color:var(--dim); font-size:12px; }
+  .stack { color:var(--gold); }
+  .hole { display:flex; gap:3px; justify-content:center; margin-bottom:4px; min-height:34px; }
+  .hole .card { width:28px; height:40px; font-size:13px; } .hole .card small { font-size:14px; }
+  .bet { position:absolute; transform:translate(-50%,-50%); background:#caa23a; color:#251c00; border-radius:14px; padding:1px 9px; font-weight:700; font-size:13px; }
+  .dealer { display:inline-block; background:#fff; color:#000; border-radius:50%; width:18px; height:18px; font-size:11px; font-weight:800; line-height:18px; margin-left:4px; }
+  .actions { margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; min-height:46px; }
+  .raise { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+  .raise input[type=number] { width:80px; padding:7px; border-radius:8px; border:1px solid #2f5b43; background:#0a140f; color:var(--ink); }
+  .raise input[type=range] { width:150px; }
+  .banner { margin-top:10px; padding:10px 14px; border-radius:10px; background:#10231a; border:1px solid #2f5b43; }
+  .win { color:#7be0a0; } .lose { color:#ff8a8a; }
+  aside { background:#0a140f; border:1px solid #1d2d24; border-radius:12px; padding:12px; max-height:calc(100vh - 100px); overflow:auto; }
+  aside h3 { margin:0 0 6px; font-size:14px; color:var(--dim); font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+  .log div { padding:2px 0; border-bottom:1px solid #14221a; font-size:13px; }
+  .log .street { color:var(--gold); margin-top:6px; border:none; font-weight:600; }
+  .reason { color:#7fb0e8; font-size:12px; margin-left:8px; }
+  .setup { display:grid; grid-template-columns: auto 1fr; gap:6px 8px; align-items:center; margin-bottom:10px; }
+  .setup select { background:#0a140f; color:var(--ink); border:1px solid #2f5b43; border-radius:6px; padding:4px; }
+  label.opt { display:flex; gap:6px; align-items:center; color:var(--dim); font-size:13px; margin:6px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Poker trainer</h1>
+  <span class="stat">$1/$2 &middot; 6-max</span>
+  <span class="stat">Hands <b id="hands">0</b></span>
+  <span class="stat">Your stack <b id="herostack">-</b></span>
+  <span class="stat">Session <b id="net">$0</b></span>
+  <span style="flex:1"></span>
+  <button id="newsession">New session</button>
+</header>
+<main>
+  <section>
+    <div class="table" id="table">
+      <div class="center"><div class="pot" id="pot"></div><div class="board" id="board"></div></div>
+    </div>
+    <div class="actions" id="actions"></div>
+    <div class="banner" id="banner" hidden></div>
+  </section>
+  <aside>
+    <h3>Opponents</h3>
+    <div class="setup" id="setup"></div>
+    <label class="opt"><input type="checkbox" id="reasons"> Show why bots acted (debug)</label>
+    <h3>Hand log</h3>
+    <div class="log" id="log"></div>
+  </aside>
+</main>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const SUITS = { s: "♠", h: "♥", d: "♦", c: "♣" };
+const START = 200;
+// Seat positions (percent of the table), hero (seat 0) at the bottom, clockwise.
+const POS = [[50, 92], [10, 70], [10, 24], [50, 4], [90, 24], [90, 70]];
+const BETPOS = [[50, 70], [26, 62], [26, 32], [50, 24], [74, 32], [74, 62]];
+const DEFAULT_OPPONENTS = ["nit", "dave_station", "lag_regular", "maniac", "solid_regular"];
+
+let personas = [];
+let session = null;   // { seed, handNumber, button, stacks, opponents, startStack, hands }
+let view = null;      // the last response
+let actions = [];     // actions of the current hand
+let reasons = {};     // event index -> why a bot acted
+let busy = false;
+
+function save() { try { localStorage.setItem("pokersim", JSON.stringify({ session, actions, reasons })); } catch (e) { /* storage may be unavailable */ } }
+function load() { try { return JSON.parse(localStorage.getItem("pokersim")); } catch (e) { return null; } }
+
+function cardEl(c, small) {
+  const d = document.createElement("div");
+  if (!c) { d.className = "card back"; d.textContent = "?"; return d; }
+  const rank = c[0] === "T" ? "10" : c[0];
+  d.className = "card" + (c[1] === "h" || c[1] === "d" ? " red" : "");
+  d.innerHTML = rank + "<small>" + SUITS[c[1]] + "</small>";
+  return d;
+}
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : undefined);
+  if (!r.ok) throw new Error((await r.text()) || r.status);
+  return r.json();
+}
+
+function seatsPayload() {
+  return [0, 1, 2, 3, 4, 5].map((i) => ({ seat: i, personaId: i === 0 ? null : session.opponents[i - 1], stack: session.stacks[i] }));
+}
+
+function newSession() {
+  const opp = [...document.querySelectorAll("#setup select")].map((s) => s.value);
+  session = { seed: Math.floor(Math.random() * 1e9), handNumber: 0, button: 5, hands: 0, net: 0,
+    stacks: Object.fromEntries([0, 1, 2, 3, 4, 5].map((i) => [i, START])), opponents: opp.length === 5 ? opp : DEFAULT_OPPONENTS };
+  startHand();
+}
+
+async function startHand() { actions = []; reasons = {}; await step(null); }
+
+async function step(action) {
+  if (busy) return;
+  busy = true; renderActions();
+  try {
+    const next = action ? [...actions, action] : actions;
+    view = await api("/api/hand", { seed: session.seed, handNumber: session.handNumber, button: session.button, seats: seatsPayload(), actions: next });
+    actions = view.actions;
+    for (const e of view.events) if (e.reason) reasons[e.index] = e.reason;
+    save();
+  } catch (e) {
+    $("banner").hidden = false; $("banner").textContent = "Error: " + e.message;
+  }
+  busy = false; render();
+}
+
+function nextHand() {
+  const n = view.next;
+  session.net = (session.net || 0) + view.result.payoffs[view.hero];
+  session.stacks = n.stacks; session.button = n.button; session.handNumber = n.handNumber; session.hands += 1;
+  startHand();
+}
+
+function describe(e) {
+  const who = view.seats.find((s) => s.seat === e.seat).name;
+  const k = e.kind;
+  if (k === "fold") return who + " folds";
+  if (k === "check") return who + " checks";
+  if (k === "call") return who + " calls";
+  if (k === "bet") return who + " bets $" + e.amount;
+  if (k === "raise") return who + " raises to $" + e.amount;
+  if (k === "show") return who + " shows";
+  if (k === "muck") return who + " mucks";
+  return null;
+}
+
+function render() {
+  const t = $("table");
+  t.querySelectorAll(".seat,.bet").forEach((n) => n.remove());
+  $("pot").textContent = view.pot ? "Pot $" + view.pot : "";
+  const board = $("board"); board.innerHTML = "";
+  view.board.forEach((c) => board.appendChild(cardEl(c)));
+  for (const s of view.seats) {
+    const spot = POS[s.seat];
+    const el = document.createElement("div");
+    el.className = "seat" + (s.seat === view.hero ? " hero" : "") + (s.inHand ? "" : " folded") + (view.waitingFor === s.seat ? " acting" : "");
+    el.style.left = spot[0] + "%"; el.style.top = spot[1] + "%";
+    const hole = document.createElement("div"); hole.className = "hole";
+    if (s.cards) s.cards.forEach((c) => hole.appendChild(cardEl(c)));
+    else if (s.inHand) { hole.appendChild(cardEl(null)); hole.appendChild(cardEl(null)); }
+    const plate = document.createElement("div"); plate.className = "plate";
+    plate.innerHTML = '<div class="name">' + s.name + (s.isButton ? '<span class="dealer">D</span>' : "") + '</div><div class="meta">' + s.position + '</div><div class="stack">$' + s.stack + (s.allIn ? " all-in" : "") + "</div>";
+    el.appendChild(hole); el.appendChild(plate); t.appendChild(el);
+    if (s.bet > 0) {
+      const b = document.createElement("div"); b.className = "bet"; b.textContent = "$" + s.bet;
+      b.style.left = BETPOS[s.seat][0] + "%"; b.style.top = BETPOS[s.seat][1] + "%"; t.appendChild(b);
+    }
+  }
+  const me = view.seats.find((s) => s.seat === view.hero);
+  $("herostack").textContent = "$" + me.stack;
+  $("hands").textContent = session.hands + (view.complete ? 1 : 0);
+  const net = (session.net || 0) + (view.complete ? view.result.payoffs[view.hero] : 0);
+  $("net").textContent = (net >= 0 ? "+$" : "-$") + Math.abs(net);
+  renderLog(); renderActions(); renderBanner();
+}
+
+function renderLog() {
+  const log = $("log"); log.innerHTML = "";
+  let street = null;
+  for (const e of view.events) {
+    const text = describe(e); if (!text) continue;
+    if (e.street !== street) { street = e.street; const h = document.createElement("div"); h.className = "street"; h.textContent = street.toUpperCase(); log.appendChild(h); }
+    const d = document.createElement("div"); d.textContent = text;
+    if ($("reasons").checked && reasons[e.index]) { const r = document.createElement("span"); r.className = "reason"; r.textContent = reasons[e.index]; d.appendChild(document.createElement("br")); d.appendChild(r); }
+    log.appendChild(d);
+  }
+  log.scrollTop = log.scrollHeight;
+}
+
+function renderBanner() {
+  const b = $("banner");
+  if (!view.complete) { if (!b.textContent.startsWith("Error")) b.hidden = true; return; }
+  const net = view.result.payoffs[view.hero];
+  const lines = view.seats.filter((s) => s.cards && s.seat !== view.hero).map((s) => s.name + " showed " + s.cards.join(" "));
+  b.hidden = false;
+  b.innerHTML = '<b class="' + (net >= 0 ? "win" : "lose") + '">' + (net > 0 ? "You won $" + net : net < 0 ? "You lost $" + -net : "You broke even") + "</b>" + (lines.length ? "<div class='meta'>" + lines.join(" &middot; ") + "</div>" : "");
+}
+
+function renderActions() {
+  const box = $("actions"); box.innerHTML = "";
+  if (!view) return;
+  if (view.complete) { const b = document.createElement("button"); b.className = "primary"; b.textContent = "Next hand"; b.onclick = nextHand; box.appendChild(b); return; }
+  const lg = view.legal;
+  if (!lg || busy) { box.textContent = busy ? "..." : ""; return; }
+  const add = (label, cls, fn) => { const b = document.createElement("button"); b.textContent = label; if (cls) b.className = cls; b.onclick = fn; box.appendChild(b); return b; };
+  const send = (kind, amount) => step({ kind, amount: amount || 0 });
+  if (lg.kinds.includes("show")) { add("Show", "primary", () => send("show")); if (lg.kinds.includes("muck")) add("Muck", "", () => send("muck")); return; }
+  if (lg.kinds.includes("fold")) add("Fold", "danger", () => send("fold"));
+  if (lg.kinds.includes("check")) add("Check", "", () => send("check"));
+  if (lg.kinds.includes("call")) add("Call $" + lg.callAmount, "primary", () => send("call"));
+  const raiseKind = lg.kinds.includes("raise") ? "raise" : lg.kinds.includes("bet") ? "bet" : null;
+  if (raiseKind) {
+    const wrap = document.createElement("div"); wrap.className = "raise";
+    const range = document.createElement("input"); range.type = "range"; range.min = lg.minRaiseTo; range.max = lg.maxRaiseTo; range.value = lg.minRaiseTo;
+    const num = document.createElement("input"); num.type = "number"; num.min = lg.minRaiseTo; num.max = lg.maxRaiseTo; num.value = lg.minRaiseTo;
+    const clamp = (v) => Math.max(lg.minRaiseTo, Math.min(lg.maxRaiseTo, Math.round(v)));
+    const set = (v) => { v = clamp(v); range.value = v; num.value = v; go.textContent = (raiseKind === "bet" ? "Bet $" : "Raise to $") + v; };
+    const go = document.createElement("button"); go.className = "primary";
+    go.onclick = () => send(raiseKind, clamp(Number(num.value)));
+    range.oninput = () => set(Number(range.value)); num.oninput = () => set(Number(num.value));
+    const me = view.seats.find((s) => s.seat === view.hero);
+    const topBet = Math.max(...view.seats.map((s) => s.bet));
+    const preset = (label, v) => { const b = document.createElement("button"); b.textContent = label; b.onclick = () => set(v); wrap.appendChild(b); };
+    wrap.appendChild(range); wrap.appendChild(num);
+    const potAfterCall = view.pot + lg.callAmount;
+    preset("1/3", topBet + potAfterCall / 3); preset("2/3", topBet + potAfterCall * 2 / 3);
+    preset("Pot", topBet + potAfterCall); preset("All-in", lg.maxRaiseTo);
+    wrap.appendChild(go); set(lg.minRaiseTo); box.appendChild(wrap);
+  }
+}
+
+function renderSetup() {
+  const box = $("setup"); box.innerHTML = "";
+  const chosen = (session && session.opponents) || DEFAULT_OPPONENTS;
+  for (let i = 1; i <= 5; i++) {
+    const l = document.createElement("span"); l.textContent = "Seat " + i; l.className = "meta";
+    const s = document.createElement("select");
+    personas.forEach((p) => { const o = document.createElement("option"); o.value = p.id; o.textContent = p.name; o.title = p.description; if (p.id === chosen[i - 1]) o.selected = true; s.appendChild(o); });
+    box.appendChild(l); box.appendChild(s);
+  }
+}
+
+$("newsession").onclick = () => { if (confirm("Start a new session? Stacks reset.")) newSession(); };
+$("reasons").onchange = () => view && renderLog();
+
+(async function init() {
+  personas = await api("/api/personas");
+  const saved = load();
+  if (saved && saved.session) {
+    session = saved.session; actions = saved.actions || []; reasons = saved.reasons || {};
+    renderSetup();
+    await step(null);
+  } else { renderSetup(); newSession(); }
+})();
+</script>
+</body>
+</html>

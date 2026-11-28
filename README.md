@@ -17,10 +17,20 @@ Early build, in slices. See the build order in the design doc.
 | 1 | Scaffold, tooling, preflop chart module and starter charts | done |
 | 2 | Game engine: PokerKit wrapper, replayable hands | done |
 | 3 | Preflop bots and simulation check of VPIP and PFR | done |
-| 4 | Postflop decision engine | in review |
-| 5 | Request handler and storage | |
-| 6 | Frontend table | |
-| 7 | Full personas, stats, tells, review | |
+| 4 | Postflop decision engine | done |
+| 5 | Playable table: hand endpoint and a bare web page, to play the bots (UAT) | in review |
+| 6 | Fixes and calibration from playing | |
+| 7 | Storage and hand history | |
+| 8 | Tells, habits, full personas, polished UI | |
+
+## Play the bots
+
+```bash
+make dev   # then open http://localhost:8000
+```
+
+You are seat 0 at a six-handed $1/$2 table with 200 chip stacks. Pick the opponents in the side panel. Tick
+"Show why bots acted" to see each bot's reasoning in the hand log.
 
 ## Quick start
 
@@ -49,5 +59,5 @@ src/pokersim/
 data/            charts, hand ranking, spot mix, later personas and presets (files, not code)
 tools/           scripts that generate data files
 tests/           pytest, including architecture rules
-frontend/        the web app (later)
+frontend/        the web table (one static page, no build step)
 ```
